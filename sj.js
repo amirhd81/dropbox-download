@@ -47,7 +47,8 @@ const browser = await chromium.launch({
 await page.waitForTimeout(3000);
 
 // Find the streamable iframe
-const frame = page.frame(f => f.url().includes("streamable.com"));
+const frames = page.frames();
+const frame = frames.find(f => f.url().includes("streamable.com"));
 
 if (!frame) {
     console.log("No streamable iframe found!");
