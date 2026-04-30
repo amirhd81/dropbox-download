@@ -50,9 +50,12 @@ const browser = await chromium.launch({
   logFile.end();
 
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(5000);
+    await page.waitForTimeout(10000);
 
     const html = await page.content();
+
+    const src = await page.getAttribute('source', 'src');
+console.log(src); 
 
   // save to file
   fs.writeFileSync('page3.html', html);
