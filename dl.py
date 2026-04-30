@@ -19,7 +19,7 @@ with sync_playwright() as p:
     page.goto(url, wait_until="domcontentloaded")
 
     # Fill password
-    page.fill('input[name="password"]', password)
+    page.fill('form[name="video-password"] input[name="password"]', password)
     page.click('button[type="submit"]')
 
     # Wait for video to unlock
