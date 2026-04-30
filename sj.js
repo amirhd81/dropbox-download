@@ -8,6 +8,7 @@ const browser = await chromium.launch({
     executablePath: chromiumPath,
     headless: true
    });
+    
 
     let clicked = false;
   const logFile = fs.createWriteStream('network_log.txt', { flags: 'a' });
@@ -31,8 +32,17 @@ const browser = await chromium.launch({
 
   await page.fill("#password", "gvc277");
 
+    console.log("password got filled")
+
   await page.click('button[type="submit"]');
+
     clicked = true
+    console.log(clicked, "buttong clicked")
+    const exists = await page.locator('p.invisible').count() > 0;
+
+console.log(exists, "error exists");
+    
+
 
   logFile.end();
   
