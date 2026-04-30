@@ -16,16 +16,16 @@ const browser = await chromium.launch({
   const page = await browser.newPage();
 
     page.on('request', req => {
-  if (clicked) {
+  
       logFile.write(` ${req.url()}\nBODY: ${req.postData()}\n\n`);
-  }
+  
 });
 
 
   page.on('response', async response => {
-      if (clicked) {
+      
     logFile.write(`<<< RESPONSE: ${response.status()} ${response.url()}\n`);
-      }
+      
   });
 
   await page.goto('https://streamable.com/ri37ps');
