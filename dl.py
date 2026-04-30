@@ -1,42 +1,40 @@
 from playwright.sync_api import sync_playwright
 
-URL = "https://streamable.com/ri37ps"
-PASSWORD = "gvc277"
+chromiumPath = "/usr/bin/chromium-browser"   # your system chromium path
+
+url = "https://streamable.com/ri37ps"
+password = "gvc277"
 
 with sync_playwright() as p:
-    browser = p.chromium.launch(headless=True)
+    browser = p.chromium.launch(
+        headless=True,
+        executable_path=chromiumPath,   # USE SYSTEM CHROMIUM
+        args=["--no-sandbox", "--disable-gpu"]
+    )
+
     context = browser.new_context()
     page = context.new_page()
 
-    print("Opening page...")
-    page.goto(URL)
+    # Navigate to video page
+    page.goto(url, wait_until="domcontentloaded")
 
-    print("Filling password...")
-    page.fill('input[name="password"]', PASSWORD)
-
-    print("Submitting...")
+    # Fill password
+    page.fill('input[name="password"]', password)
     page.click('button[type="submit"]')
 
-    # Wait until Streamable loads the unlocked video source
-    print("Waiting for unlocked video source...")
-    page.wait_for_selector("video source[src]", timeout=15000)
+    # Wait for video to unlock
+    page.wait_for_selector("video source[src]")
 
-    # Extract the URL
-    video_src = page.get_attribute("video source", "src")
-    print("Video source:", video_src)
+    # Extract video URL
+    video_url = page.locator("video source").first.get_attribute("src")
+    print("Video URL:", video_url)
 
-    print("Downloading video...")
-    response = context.request.get(video_src)
+    # Download using authenticated Playwright session
+    response = context.request.get(video_url)
+    content = response.body()
 
-    if not response.ok:
-        print("Download failed:", response.status, response.status_text())
-        browser.close()
-        exit()
+    # Save
+    with open("video.mp4", "wb") as f:
+        f.write(content)
 
-    output_name = "ri37ps.mp4"
-    with open(output_name, "wb") as f:
-        f.write(response.body())
-
-    print(f"Saved video as {output_name}")
-
-    browser.close()
+    print("Saved video.mp4")
