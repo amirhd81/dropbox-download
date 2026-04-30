@@ -28,22 +28,22 @@ const browser = await chromium.launch({
       
   });
 
-  await page.goto('https://streamable.com/ri37ps');
+  await page.goto('https://streamable.com/dnd1');
 
-    console.log("filling password")
+    // console.log("filling password")
 
-  await page.fill('form[name="video-password"] input[name="password"]', 'gvc277');
+//   await page.fill('form[name="video-password"] input[name="password"]', 'gvc277');
 
 
-    console.log("password got filled")
+//     console.log("password got filled")
 
-  await page.click('button[type="submit"]');
+//   await page.click('button[type="submit"]');
 
-    clicked = true
-    console.log(clicked, "buttong clicked")
-    const exists = await page.locator('p.invisible').count() > 0;
+//     clicked = true
+//     console.log(clicked, "buttong clicked")
+//     const exists = await page.locator('p.invisible').count() > 0;
 
-console.log(exists, "error exists");
+// console.log(exists, "error exists");
     
 
 
@@ -55,7 +55,7 @@ console.log(exists, "error exists");
     const html = await page.content();
 
   // save to file
-  fs.writeFileSync('page2.html', html);
+  fs.writeFileSync('page3.html', html);
 
   console.log('HTML saved');
   
