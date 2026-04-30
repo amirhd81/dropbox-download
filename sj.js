@@ -45,28 +45,10 @@ const browser = await chromium.launch({
 
 await page.waitForTimeout(3000);
 
-    const elementHandle = await page.$('iframe');
-const frame = await elementHandle.contentFrame();
+    const div = await page.locator("div.svp-desktop-player")
 
-    if (!frame) {
-  console.log("Frame not loaded yet");
-} else {
-  const html = await frame.content();
-  console.log(html);
-}
 
-// Extract URL
-const src = await frame.getAttribute("source", "src");
-
-console.log("Final video src:", src);
-
-    const html = await page.content();
-
-//     const src = await page.locator('source').getAttribute('src');
-// console.log(src); 
-
-  // save to file
-  fs.writeFileSync('page3.html', html);
+  fs.writeFileSync('page4.html', div);
 
   console.log('HTML saved');
   
