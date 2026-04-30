@@ -47,8 +47,8 @@ await page.waitForTimeout(3000);
 
     const div = await page.locator("div.svp-desktop-player")
 
-
-  console.log(div, 'HTML saved');
+    const html = await div.innerHTML();
+console.log(html);
   
   // await page.waitForTimeout(500000);
 
