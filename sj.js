@@ -59,8 +59,13 @@ console.log(exists, "error exists");
 
     const html = await page.content();
 
-    const src = await page.locator('source').getAttribute('src');
-console.log(src); 
+    const frame = page.frames().find(f => f.url().includes("video") || f.url().includes("embed"));
+
+const src = await frame.getAttribute("source", "src");
+console.log("Video src from iframe:", src);
+
+//     const src = await page.locator('source').getAttribute('src');
+// console.log(src); 
 
   // save to file
   fs.writeFileSync('page3.html', html);
