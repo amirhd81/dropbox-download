@@ -30,25 +30,12 @@ const browser = await chromium.launch({
 
   await page.goto('https://streamable.com/ri37ps');
 
-    console.log("URL before click:", page.url());
-
-    console.log("filling password")
-
   await page.fill('form[name="video-password"] input[name="password"]', 'gvc277');
 
-
-    console.log("password got filled")
-
   await page.click('button[type="submit"]');
-    console.log("Frames in page:", page.frames().map(f => f.url()));
 
     clicked = true
     console.log(clicked, "buttong clicked")
-
-    console.log("URL after click:", page.url());
-    const exists = await page.locator('p.invisible').count() > 0;
-
-console.log(exists, "error exists");
     
 
 
@@ -57,12 +44,12 @@ console.log(exists, "error exists");
     await page.waitForLoadState('networkidle');
     await page.waitForTimeout(1000);
 
+    console.log("source count:", await page.locator("source").count());
+console.log("video count:", await page.locator("video").count());
+
+console.log("FRAMES:", page.frames().map(f => f.url()));
+
     const html = await page.content();
-
-    const frame = page.frames().find(f => f.url().includes("video") || f.url().includes("embed"));
-
-const src = await frame.getAttribute("source", "src");
-console.log("Video src from iframe:", src);
 
 //     const src = await page.locator('source').getAttribute('src');
 // console.log(src); 
