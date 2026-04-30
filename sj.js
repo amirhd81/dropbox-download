@@ -55,7 +55,7 @@ console.log(exists, "error exists");
   logFile.end();
 
     await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(20000);
+    await page.waitForTimeout(1000);
 
     const html = await page.content();
 
