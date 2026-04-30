@@ -30,7 +30,10 @@ const browser = await chromium.launch({
 
   await page.goto('https://streamable.com/ri37ps');
 
-  await page.fill("#password", "gvc277");
+    console.log("filling password")
+
+  await page.fill('form[name="video-password"] input[name="password"]', 'gvc277');
+
 
     console.log("password got filled")
 
