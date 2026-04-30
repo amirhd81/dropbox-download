@@ -41,7 +41,6 @@ const browser = await chromium.launch({
 
   logFile.end();
 
-    await page.waitForLoadState('networkidle');
     await page.waitForTimeout(1000);
 
     console.log("source count:", await page.locator("source").count());
