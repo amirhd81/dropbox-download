@@ -16,8 +16,8 @@ const browser = await chromium.launch({
   const page = await browser.newPage();
 
     page.on('request', req => {
-  if (clicked && req.method() === 'POST') {
-      logFile.write(`POST ${req.url()}\nBODY: ${req.postData()}\n\n`);
+  if (clicked) {
+      logFile.write(` ${req.url()}\nBODY: ${req.postData()}\n\n`);
   }
 });
 
